@@ -6,12 +6,24 @@ const startBtn = document.getElementById('start');
 const pauseBtn = document.getElementById('pause');
 const resetBtn = document.getElementById('reset');
 
+const switcher = document.getElementById('theme-switcher');
+
 let startTimer;
 let leftTime;
 
+switcher.addEventListener('click', function() {
+  const rootElem = document.documentElement;
+  let dataTheme = rootElem.getAttribute('data-theme'),
+    newTheme
+
+  newTheme = (dataTheme === 'light') ? 'dark' : 'light';
+  
+  rootElem.setAttribute('data-theme', newTheme);
+})
+
 
 function timer() {
-  hours.disabled = true;
+  hours.disabled = true; 
   minutes.disabled = true;
   seconds.disabled = true;
 
@@ -66,8 +78,11 @@ function resetTimer() {
 
 startBtn.addEventListener('click', function() {
   if (startTimer) {
+    //Если StartTimer = 1, мы выходим из функции и дальше код не идет. 
     return;
   }
+
+  //Если же StartTimer = 0 or undefined or null то тогда срабатывает код ниже
 
   leftTime = calculateLeftTime();
 
