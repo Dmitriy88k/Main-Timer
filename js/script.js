@@ -8,9 +8,6 @@ const resetBtn = document.getElementById('reset');
 
 const switcher = document.getElementById('theme-switcher');
 
-let startTimer;
-let leftTime;
-
 switcher.addEventListener('click', function() {
   const rootElem = document.documentElement;
   let dataTheme = rootElem.getAttribute('data-theme'),
@@ -20,6 +17,10 @@ switcher.addEventListener('click', function() {
   
   rootElem.setAttribute('data-theme', newTheme);
 })
+
+
+let startTimer;
+let leftTime;
 
 
 function timer() {
@@ -33,21 +34,16 @@ function timer() {
     resetTimer();
   }
 
-  else if(seconds.value != 0) {
-    seconds.value--;
-  }
+  let s = leftTime;
 
-  else if(minutes.value != 0 && seconds.value == 0) {
-    minutes.value--;
-    seconds.value = 59;
-  }
+  const h = Math.floor(s / 3600);
+  s = s - (h * 3600);
+  const m = Math.floor(s/ 60);
+  s = s - (m * 60);
 
-  else if(hours.value != 0 && minutes.value == 0 && seconds.value == 0) {
-    hours.value--;
-    minutes.value = 59;
-    seconds.value = 59;
-  }
-  return;
+  hours.value = h;
+  minutes.value = m;
+  seconds.value = s;
 }
 
 function calculateLeftTime() {
